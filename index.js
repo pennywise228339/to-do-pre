@@ -13,7 +13,14 @@ const formElement = document.querySelector(".to-do__form");
 
 formElement.addEventListener("submit", function(event) {
   event.preventDefault();
-  const newTask = createItem(inputElement.value);
+  
+
+  const taskText = inputElement.value.trim();
+  if (!taskText) {
+    return; 
+  }
+  
+  const newTask = createItem(taskText);
   listElement.prepend(newTask);
   saveTasks(getTasksFromDOM());
   formElement.reset();
@@ -70,7 +77,6 @@ function getTasksFromDOM() {
 function saveTasks(tasks) {
   localStorage.setItem("allTasks", JSON.stringify(tasks));
 }
-
 
 const tasksToLoad = loadTasks();
 tasksToLoad.forEach(item => { 
